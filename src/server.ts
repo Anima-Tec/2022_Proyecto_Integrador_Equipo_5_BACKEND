@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import Companyroute from './api/v1/routes/company';
+import { makeRoutesApp } from './api/v1/routes';
+
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-
-app.use('/api/company', Companyroute)
+makeRoutesApp(app);
 
 
 
