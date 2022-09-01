@@ -1,12 +1,13 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import cors from 'cors';
-import { makeRoutesApp } from './api/v1/routes';
-
+import makeRoutesApp  from './api/v1/routes';
+import bodyParser from 'body-parser';
 
 const app = express();
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
+// add morgan, helmet...
 
 makeRoutesApp(app);
 
