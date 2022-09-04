@@ -1,5 +1,5 @@
-import { PrismaClient, User } from "@prisma/client";
-import { UserByEmail, UserById } from "../../Schemas/users/user.schema";
+import { PrismaClient } from "@prisma/client";
+import { UserByEmail } from "../../Schemas/users/user.schema";
 const prisma = new PrismaClient();
 
 
