@@ -26,14 +26,15 @@ export const RegisterStudentSchema = z.object({
     body: z.object({
         email: z.string().email({message: "email is not valid"}),
         password: z.string().min(6, 'password too short').max(20),
-        ci: z.number(),
-        highschool_number: z.number(), // ...
-        first_name: z.string(),
-        last_name: z.string(),
-        birth_date: z.string(),
-       /*  newsletter: z.bigint(), // file */
         description: z.string(),
-        phonenumber: z.string(),
+        ci: z.string(),
+        first_name: z.string(),
+        second_name: z.string(),
+        last_name: z.string(),
+        second_surname: z.string(),
+        birth_date: z.string(),
+        highschool: z.string(),
+        phone_number: z.string()
     }),
 });
 

@@ -1,5 +1,5 @@
 import { Application } from "express";
-import { verifyToken } from "../middlewares/auth/verifyToken";
+// import { verifyToken } from "../middlewares/auth/verifyToken";
 import { authRoutes } from "./auth/auth.routes";
 import { companyRoutes } from "./company/compay.routes";
 

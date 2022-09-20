@@ -4,40 +4,43 @@ import { StudentRegisterType } from "../../Schemas/auth/auth.schema";
 const prisma = new PrismaClient();
 
 export async function registerStudentService(student: StudentRegisterType) {
-
   try {
-    return await prisma.student.create({
+    return await prisma.user.create({
       data: {
-        ci: student.ci,
-        highschool_number: student.highschool_number,
-        id_status: 1, // conect table  status
-        first_name: student.first_name,
-        last_name: student.last_name,
-        birth_date: null,
-        newsletter: {
-          create: {
-            Average: 2,
+        email: student.email,
+        password: student.password,
+        description: student.description,
+        rol: {
+          connect: {
+            id_rol: 1
           }
         },
-        user: {
-          create: {
-            email: student.email,
-            password: student.password,
-            description: student.description,
-            rol: {
-              connect: { id: 1 }
-            },
-            phonenumber: {
-              create: {
-                phoneNumber: student.phonenumber
-              }
-            }
+        status: {
+          connect: {
+            id_status: 1
           }
         },
+        student: {
+          create: {
+            ci: student.ci,
+            first_name: student.first_name,
+            second_name: student.second_name,
+            last_name: student.last_name,
+            second_surname: student.second_surname,
+            birth_date: new Date(student.birth_date).toISOString(),
+            highschool: student.highschool,
+
+          }
+        },
+        phonenumber: {
+          create: {
+            phone_number: student.phone_number,
+          }
+        }
       }
-    })
+    });
   } catch (error) {
     console.log(error);
-
+    
   }
 }

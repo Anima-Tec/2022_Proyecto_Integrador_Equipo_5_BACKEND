@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 
-export async function foundStudentByCI(ci: number) {
+export async function foundStudentByCI(ci: string) {
     if ( ci ) {
         const userFound = await prisma.student.findFirst({
             where: {
