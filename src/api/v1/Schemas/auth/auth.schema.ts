@@ -11,15 +11,14 @@ export const RegisterCompanySchema = z.object({
     body: z.object({
         email: z.string().email({message: "email is not valid"}),
         password: z.string().min(6, 'password too short').max(20),
-        RUT: z.number(),
-        name: z.string(),
+        description: z.string(),
+        rut: z.string(),
+        name_company: z.string(),
+        employees: z.number(), 
         dir_street: z.string(),
         dir_number: z.number(),
-        employees: z.number(), // no required
-        description: z.string(), // same
-        phonenumber: z.string(),
-        validate: z.boolean(),
-        yearFundation: z.string()
+        phone_number: z.string(),
+        year_foundation: z.string()
     }),
 });
 
