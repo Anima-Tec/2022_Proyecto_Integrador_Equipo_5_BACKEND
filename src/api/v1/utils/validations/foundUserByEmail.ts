@@ -4,17 +4,18 @@ const prisma = new PrismaClient();
 
 
 export async function foundUserByEmail(email: UserByEmail) {
-    if ( email ) {
-        const userFound = await prisma.user.findFirst({
+    try{
+        const user = await prisma.user.findUnique({
             where: {
-                email
+                email: email
             },
             include: {
-                rol: true
+                rol: true,
+                status: true
             }
-        })
-        return userFound;
-    } else {
-        throw new Error('User not found');
-    }
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+    }   
 }
