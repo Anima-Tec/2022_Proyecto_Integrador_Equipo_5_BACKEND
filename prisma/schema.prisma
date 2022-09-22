@@ -7,17 +7,148 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Rol {
-  id      Int    @id @default(autoincrement())
-  nameRol String 
-  user    User[]
+model apply {
+  id_jod_offer_apply                      Int
+  id_student_apply                        Int
+  ci_student_apply                        String   @db.VarChar(10)
+  joboffer                                joboffer @relation(fields: [id_jod_offer_apply], references: [id_job_offer], onUpdate: Restrict, map: "apply_ibfk_1")
+  student_apply_id_student_applyTostudent student  @relation("apply_id_student_applyTostudent", fields: [id_student_apply], references: [id_student], onUpdate: Restrict, map: "apply_ibfk_2")
+  student_apply_ci_student_applyTostudent student  @relation("apply_ci_student_applyTostudent", fields: [ci_student_apply], references: [ci], onUpdate: Restrict, map: "apply_ibfk_3")
+
+  @@id([id_jod_offer_apply, id_student_apply, ci_student_apply])
+  @@index([ci_student_apply], map: "ci_student_apply")
+  @@index([id_student_apply], map: "id_student_apply")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  name     String 
-  email    String 
-  password String 
-  rol      Rol    @relation(fields: [rolId], references: [id])
-  rolId    Int
+model company {
+  id_company                         Int @unique
+  rut                                String     @unique(map: "rut") @db.VarChar(10)
+  name_company                       String     @db.VarChar(50)
+  employees                          Int
+  dir_street                         String     @db.VarChar(50)
+  dir_number                         Int
+  year_foundation                    DateTime   @db.Date
+  user                               user       @relation(fields: [id_company], references: [id_user], onDelete: Cascade, onUpdate: Restrict, map: "company_ibfk_1")
+  joboffer                           joboffer[]
+  work_companyTowork_id_company_work work[]     @relation("companyTowork_id_company_work")
+  work_companyTowork_rut_comany_work work[]     @relation("companyTowork_rut_comany_work")
+
+  @@id([id_company, rut])
+}
+
+model interest {
+  id_student_interest                           Int
+  ci_student_interest                           String   @db.VarChar(10)
+  id_work_area_interest                         Int
+  student_interest_id_student_interestTostudent student  @relation("interest_id_student_interestTostudent", fields: [id_student_interest], references: [id_student], onUpdate: Restrict, map: "interest_ibfk_1")
+  student_interest_ci_student_interestTostudent student  @relation("interest_ci_student_interestTostudent", fields: [ci_student_interest], references: [ci], onUpdate: Restrict, map: "interest_ibfk_2")
+  workarea                                      workarea @relation(fields: [id_work_area_interest], references: [id_work_area], onUpdate: Restrict, map: "interest_ibfk_3")
+
+  @@id([id_student_interest, ci_student_interest, id_work_area_interest])
+  @@index([ci_student_interest], map: "ci_student_interest")
+  @@index([id_work_area_interest], map: "id_work_area_interest")
+}
+
+model joboffer {
+  id_job_offer Int      @unique(map: "id_job_offer") @default(autoincrement())
+  id_company   Int
+  id_work_area Int
+  name         String   @db.VarChar(50)
+  description  String   @db.VarChar(255)
+  start_hour   String 
+  end_hour     String 
+  modality     String   @db.VarChar(50)
+  quotas       Int
+  company      company  @relation(fields: [id_company], references: [id_company], onUpdate: Restrict, map: "joboffer_ibfk_1")
+  workarea     workarea @relation(fields: [id_work_area], references: [id_work_area], onUpdate: Restrict, map: "joboffer_ibfk_2")
+  apply        apply[]
+
+  @@id([id_job_offer, id_company, id_work_area])
+  @@index([id_company], map: "id_company")
+  @@index([id_work_area], map: "id_work_area")
+}
+
+model newsletter {
+  id_newsletter Int     @id @default(autoincrement())
+  average_score Int
+  newsletter    Bytes   @db.Blob
+  id_student    Int
+  student       student @relation(fields: [id_student], references: [id_student], onUpdate: Restrict, map: "newsletter_ibfk_1")
+
+  @@index([id_student], map: "id_student")
+}
+
+model phonenumber {
+  id_user_phone_number Int
+  phone_number         String @db.VarChar(10)
+  user                 user   @relation(fields: [id_user_phone_number], references: [id_user], onUpdate: Restrict, map: "phonenumber_ibfk_1")
+
+  @@id([id_user_phone_number, phone_number])
+}
+
+model rol {
+  id_rol   Int    @id @default(autoincrement())
+  name_rol String @unique(map: "name_rol") @db.VarChar(50)
+  user     user[]
+}
+
+model status {
+  id_status Int    @id @default(autoincrement())
+  name      String @unique(map: "name") @db.VarChar(50)
+  user      user[]
+}
+
+model student {
+  id_student                                     Int          @id
+  ci                                             String       @unique(map: "ci") @db.VarChar(10)
+  first_name                                     String       @db.VarChar(50)
+  second_name                                    String       @db.VarChar(50)
+  last_name                                      String       @db.VarChar(50)
+  second_surname                                 String       @db.VarChar(50)
+  birth_date                                     DateTime     @db.Date
+  highschool                                     String       @db.VarChar(50)
+  user                                           user         @relation(fields: [id_student], references: [id_user], onDelete: Cascade, onUpdate: Restrict, map: "student_ibfk_1")
+  apply_apply_id_student_applyTostudent          apply[]      @relation("apply_id_student_applyTostudent")
+  apply_apply_ci_student_applyTostudent          apply[]      @relation("apply_ci_student_applyTostudent")
+  interest_interest_id_student_interestTostudent interest[]   @relation("interest_id_student_interestTostudent")
+  interest_interest_ci_student_interestTostudent interest[]   @relation("interest_ci_student_interestTostudent")
+  newsletter                                     newsletter[]
+}
+
+model user {
+  id_user     Int           @id @default(autoincrement())
+  email       String        @unique(map: "email") @db.VarChar(40)
+  password    String        @db.VarChar(50)
+  description String        @db.VarChar(255)
+  id_rol      Int
+  id_status   Int
+  rol         rol           @relation(fields: [id_rol], references: [id_rol], onUpdate: Restrict, map: "user_ibfk_1")
+  status      status        @relation(fields: [id_status], references: [id_status], onUpdate: Restrict, map: "user_ibfk_2")
+  company     company[]
+  phonenumber phonenumber[]
+  student     student?
+
+  @@index([id_rol], map: "id_rol")
+  @@index([id_status], map: "id_status")
+}
+
+model work {
+  id_company_work                       Int
+  rut_comany_work                       String   @db.VarChar(10)
+  id_work_area_work                     Int
+  company_companyTowork_id_company_work company  @relation("companyTowork_id_company_work", fields: [id_company_work], references: [id_company], onUpdate: Restrict, map: "work_ibfk_1")
+  company_companyTowork_rut_comany_work company  @relation("companyTowork_rut_comany_work", fields: [rut_comany_work], references: [rut], onUpdate: Restrict, map: "work_ibfk_2")
+  workarea                              workarea @relation(fields: [id_work_area_work], references: [id_work_area], onUpdate: Restrict, map: "work_ibfk_3")
+
+  @@id([id_company_work, rut_comany_work, id_work_area_work])
+  @@index([id_work_area_work], map: "id_work_area_work")
+  @@index([rut_comany_work], map: "rut_comany_work")
+}
+
+model workarea {
+  id_work_area   Int        @id @default(autoincrement())
+  name_work_area String     @unique(map: "name_work_area") @db.VarChar(50)
+  interest       interest[]
+  joboffer       joboffer[]
+  work           work[]
 }
