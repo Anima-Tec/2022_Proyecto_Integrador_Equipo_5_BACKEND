@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const JobOfferSchema = z.object({
     body: z.object({
+        id: z.number().nullable(),
         name: z.string(),
         description: z.string(),
         start_hour: z.string(),
