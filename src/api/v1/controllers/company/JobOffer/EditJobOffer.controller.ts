@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { editJobOfferService } from '../../../services/company/JobOffer/editJobOffer.service';
+import { editJobOfferService } from '../../../services/company/JobOffer/EditJobOffer.service';
 
 export default async function EditJobOfferController(req: Request, res: Response) {
     try {
