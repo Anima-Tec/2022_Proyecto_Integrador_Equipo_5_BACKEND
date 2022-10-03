@@ -11,9 +11,9 @@ export default async function loginController({ body }: Request<unknown, unknown
         loginServices(body).then(async user => {
             const hash = await bcrypt.hash(user?.password!, 10); // Temporal!! Porque las contraseñas no se guardan encriptadas y al hacer el compare no funciona
             if (await validatePassword(body.password, hash)) {
-                const token = generateToken({ id: user?.id_user!, role: user?.rol.name_rol!, status: user?.status.name! });
+                const token = generateToken({ email: user?.email!, role: user?.rol.name_rol!, status: user?.status.name! });
                 res.json({
-                    user_id: user?.id_user,
+                    user_email: user?.email,
                     user_role: user?.rol.name_rol,
                     user_status: user?.status.name,
                     token: token
