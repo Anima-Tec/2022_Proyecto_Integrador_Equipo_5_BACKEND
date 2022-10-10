@@ -27,7 +27,7 @@ export const RegisterStudentSchema = z.object({
         email: z.string().email({message: "email is not valid"}),
         password: z.string().min(6, 'password too short').max(20),
         description: z.string(),
-        ci: z.string(),
+        ci: z.string()/* .min(8, 'ci too short').max(8) */,
         first_name: z.string(),
         second_name: z.string(),
         last_name: z.string(),

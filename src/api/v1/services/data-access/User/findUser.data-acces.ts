@@ -1,10 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { UserByEmail } from "../../Schemas/users/user.schema";
 const prisma = new PrismaClient();
 
-
-export async function foundUserByEmail(email: UserByEmail) {
-    try{
+export async function findUserByEmail(email: string) {
+    try {
         const user = await prisma.user.findUnique({
             where: {
                 email: email
@@ -17,5 +15,5 @@ export async function foundUserByEmail(email: UserByEmail) {
         return user;
     } catch (error) {
         console.log(error);
-    }   
+    }
 }

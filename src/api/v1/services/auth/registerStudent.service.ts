@@ -1,46 +1,32 @@
 
-import { PrismaClient } from "@prisma/client"
 import { StudentRegisterType } from "../../Schemas/auth/auth.schema";
-const prisma = new PrismaClient();
+import { findUserByEmail } from "../data-access/User/findUser.data-acces";
+import { createStudent } from "../data-access/User/Student/createStudent.data-access";
+import { findStudentByCI } from "../data-access/User/Student/findStudentByCI.data-access";
 
-export async function registerStudentService(student: StudentRegisterType) {
+interface RegisterResponse {
+  status: number;
+  message?: string;
+};
+
+export async function registerStudentService(student: StudentRegisterType): Promise<RegisterResponse> {
   try {
-    return await prisma.user.create({
-      data: {
-        email: student.email,
-        password: student.password,
-        description: student.description,
-        rol: {
-          connect: {
-            id_rol: 1
-          }
-        },
-        status: {
-          connect: {
-            id_status: 1
-          }
-        },
-        student: {
-          create: {
-            ci: student.ci,
-            first_name: student.first_name,
-            second_name: student.second_name,
-            last_name: student.last_name,
-            second_surname: student.second_surname,
-            birth_date: new Date(student.birth_date).toISOString(),
-            highschool: student.highschool,
-
-          }
-        },
-        phonenumber: {
-          create: {
-            phone_number: student.phone_number,
-          }
-        }
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    
+    if( await findStudentByCI(student.ci) || await findUserByEmail(student.email) ) {
+      return {
+        status: 400,
+        message: "Email or CI has already been taken"
+      };
+    } 
+    const studentCreated = await createStudent(student);
+    return {
+      status: 201,
+      message: "Student created"
+    };
+  } catch (error: any) {
+    return { status: 500, message: error.message };
   }
 }
+
+// ver , si se registra el usuario ya mismo generar el token y que el front lo capture y lo ingrese. O Que lo redireccione al Login. - se agrega a la interfaz de respuesta el token y se agrega al return del servicio
+// por el momento solo lo registra y no genera el token
+// password confirmar que sea igual al password
