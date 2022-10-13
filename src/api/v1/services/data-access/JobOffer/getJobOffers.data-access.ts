@@ -1,9 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export async function getJobOffersService() {
-    
-    try{
+export async function getJobOffers() {
+    try {
         return await prisma.joboffer.findMany({
             select: {
                 id_job_offer: true,
@@ -24,7 +23,6 @@ export async function getJobOffersService() {
                 company: true,
             },
         });
-
     } catch (error) {
         console.log(error);
     }

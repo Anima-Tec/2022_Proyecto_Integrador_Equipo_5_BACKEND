@@ -8,14 +8,14 @@ datasource db {
 }
 
 model apply {
-  id_jod_offer_apply                      Int
+  id_job_offer_apply                      Int
   id_student_apply                        Int
   ci_student_apply                        String   @db.VarChar(10)
-  joboffer                                joboffer @relation(fields: [id_jod_offer_apply], references: [id_job_offer], onDelete: Cascade ,  onUpdate: Restrict, map: "apply_ibfk_1") //agrege on delete
+  joboffer                                joboffer @relation(fields: [id_job_offer_apply], references: [id_job_offer], onUpdate: Restrict, map: "apply_ibfk_1")
   student_apply_id_student_applyTostudent student  @relation("apply_id_student_applyTostudent", fields: [id_student_apply], references: [id_student], onUpdate: Restrict, map: "apply_ibfk_2")
   student_apply_ci_student_applyTostudent student  @relation("apply_ci_student_applyTostudent", fields: [ci_student_apply], references: [ci], onUpdate: Restrict, map: "apply_ibfk_3")
 
-  @@id([id_jod_offer_apply, id_student_apply, ci_student_apply])
+  @@id([id_job_offer_apply, id_student_apply, ci_student_apply])
   @@index([ci_student_apply], map: "ci_student_apply")
   @@index([id_student_apply], map: "id_student_apply")
 }
@@ -56,12 +56,13 @@ model joboffer {
   name         String   @db.VarChar(50)
   description  String   @db.VarChar(255)
   start_hour   String 
-  end_hour     String 
+  end_hour     String
   modality     String   @db.VarChar(50)
   quotas       Int
   company      company  @relation(fields: [id_company], references: [id_company], onUpdate: Restrict, map: "joboffer_ibfk_1")
   workarea     workarea @relation(fields: [id_work_area], references: [id_work_area], onUpdate: Restrict, map: "joboffer_ibfk_2")
-  apply        apply[]  
+  apply        apply[]
+
   @@id([id_job_offer, id_company, id_work_area])
   @@index([id_company], map: "id_company")
   @@index([id_work_area], map: "id_work_area")

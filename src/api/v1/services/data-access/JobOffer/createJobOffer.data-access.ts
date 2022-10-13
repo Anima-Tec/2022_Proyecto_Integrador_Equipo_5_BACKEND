@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { JobOfferType } from "../../../Schemas/company/joboffer.schema";
 const prisma = new PrismaClient();
 
-export async function createJobOfferService(jobOffer: JobOfferType) {
-    try{
+export async function createJobOffer(jobOffer: JobOfferType) {
+    try {
         return await prisma.joboffer.create({
             data: {
                 name: jobOffer.name,
@@ -12,8 +12,16 @@ export async function createJobOfferService(jobOffer: JobOfferType) {
                 end_hour: jobOffer.end_hour,
                 modality: jobOffer.modality,
                 quotas: jobOffer.quotas,
-                id_work_area: jobOffer.id_work_area,
-                id_company: jobOffer.user.id,
+                workarea: {
+                    connect: {
+                        id_work_area: jobOffer.id_work_area,
+                    },
+                },
+                company: {
+                    connect: {
+                        id_company: jobOffer.user.id,
+                    }
+                }
             },
         });
     } catch (error) {

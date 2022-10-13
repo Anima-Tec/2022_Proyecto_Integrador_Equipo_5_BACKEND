@@ -1,5 +1,6 @@
 export interface IUserToken {
-    email: string,
-    role: string,
-    status: string,
+    id: number;
+    email: string;
+    role: string;
+    status: string;
 }

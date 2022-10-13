@@ -5,13 +5,15 @@ export async function findUserByEmail(email: string) {
     try {
         const user = await prisma.user.findUnique({
             where: {
-                email: email
+                email
             },
             include: {
                 rol: true,
                 status: true
             }
         });
+        console.log(user);
+        
         return user;
     } catch (error) {
         console.log(error);

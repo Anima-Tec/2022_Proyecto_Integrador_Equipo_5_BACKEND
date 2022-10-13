@@ -1,10 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { JobOfferType } from "../../../Schemas/company/joboffer.schema";
+import { JobOfferType } from "../../Schemas/company/joboffer.schema";
 const prisma = new PrismaClient();
 
 export async function editJobOfferService(jobOffer: JobOfferType, id: number) {
     try{
 
+/*  PASAR CONTROLLER A ADMIN,
         const test=  await prisma.joboffer.update({
             where: {
                 id_job_offer_id_company_id_work_area: {
@@ -24,7 +25,7 @@ export async function editJobOfferService(jobOffer: JobOfferType, id: number) {
             },
         });
         console.log(test);
-        return test;
+        return test; */
     } catch (error) {
         console.log(error);
     }

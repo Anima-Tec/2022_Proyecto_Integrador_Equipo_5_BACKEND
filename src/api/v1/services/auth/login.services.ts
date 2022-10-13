@@ -17,7 +17,7 @@ export async function loginServices(user: UserLoginType): Promise<LoginResponse>
     const userFound = await findUserByEmail(user.email);
     if (userFound) {
       if (await validatePassword(userFound.password, hash)) {
-        const token = generateToken({ email: userFound?.email!, role: userFound?.rol.name_rol!, status: userFound?.status.name! });
+        const token = generateToken({ id: userFound?.id_user, email: userFound?.email!, role: userFound?.rol.name_rol!, status: userFound?.status.name! });
         return {
           status: 200,
           token: token
