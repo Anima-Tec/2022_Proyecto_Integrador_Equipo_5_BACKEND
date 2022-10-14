@@ -9,11 +9,10 @@ const jobOfferRoutes = Router();
 
 
 jobOfferRoutes
-    .get('/', GetJobOffersController) // 
-    .post('/', CreateJobOfferController) //
-    .get('/:id', GetJobOfferController) //
-    /*
-    .put('/joboffer/:id', EditJobOfferController ) */
+    .get('/', GetJobOffersController)
+    .post('/', CreateJobOfferController)
+    .get('/:id', GetJobOfferController)
+    /* .put('/joboffer/:id', EditJobOfferController ) */
     .delete('/:id', DeleteJobOfferController)
 
 

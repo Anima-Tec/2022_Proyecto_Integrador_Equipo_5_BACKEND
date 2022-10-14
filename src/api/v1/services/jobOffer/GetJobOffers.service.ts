@@ -3,7 +3,7 @@ import { getJobOffers } from "../data-access/JobOffer/getJobOffers.data-access";
 interface JobOfferResponse {
     status: number;
     message?: string;
-    joboffer?: object;
+    jobOffers?: object;
 }
 
 export async function getJobOffersService(): Promise<JobOfferResponse> {
@@ -20,7 +20,7 @@ export async function getJobOffersService(): Promise<JobOfferResponse> {
 
         return {
             status: 200,
-            joboffer: jobOffers,
+            jobOffers,
         };
 
     } catch (error: any) {

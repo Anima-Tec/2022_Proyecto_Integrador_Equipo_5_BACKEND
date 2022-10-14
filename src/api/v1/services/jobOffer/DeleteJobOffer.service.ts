@@ -4,11 +4,11 @@ import { getJobOffer } from "../data-access/JobOffer/getJobOffer.data-access";
 
 interface JobOfferResponse {
     status: number;
-    message?: string;
-    joboffer?: object;
+    message: string;
+    jobOffer?: object;
 }
 
-export async function deleteJobOfferService(id_job_offer: number, id_company: number) {
+export async function deleteJobOfferService(id_job_offer: number, id_company: number): Promise<JobOfferResponse> {
     try {
         const jobOffer = await getJobOffer(id_job_offer);
 
@@ -31,9 +31,13 @@ export async function deleteJobOfferService(id_job_offer: number, id_company: nu
         return {
             status: 200,
             message: "JobOffer deleted",
+            jobOffer: jobOffer
         };
 
     } catch (error) {
-        console.log(error);
+        return {
+            status: 500,
+            message: "Ha un ocurrido un error en el servidor" + error
+        }
     }
 }
