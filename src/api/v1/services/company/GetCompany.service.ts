@@ -1,4 +1,4 @@
-import { getCompany } from "../data-access/User/Company/getCompany.data-acess";
+import { getCompany } from "../data-access/User/Company/GetCompany.data-acess";
 
 interface ResponseCompanies {
     status: number;
