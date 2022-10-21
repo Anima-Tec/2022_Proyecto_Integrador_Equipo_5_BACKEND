@@ -1,6 +1,6 @@
 
 import { StudentRegisterType } from "../../Schemas/auth/auth.schema";
-import { findUserByEmail } from "../data-access/User/findUser.data-acces";
+import { findUserByEmail } from "../data-access/User/findUserByEmail.data-acces";
 import { createStudent } from "../data-access/User/Student/createStudent.data-access";
 import { findStudentByCI } from "../data-access/User/Student/findStudentByCI.data-access";
 
@@ -14,13 +14,13 @@ export async function registerStudentService(student: StudentRegisterType): Prom
     if( await findStudentByCI(student.ci) || await findUserByEmail(student.email) ) {
       return {
         status: 400,
-        message: "Email or CI has already been taken"
+        message: "Usuario ya existente"
       };
     } 
-    const studentCreated = await createStudent(student);
+    await createStudent(student);
     return {
       status: 201,
-      message: "Student created"
+      message: "Se ha registrado con exito"
     };
   } catch (error: any) {
     return { status: 500, message: error.message };

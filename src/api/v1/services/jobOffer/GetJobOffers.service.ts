@@ -9,7 +9,6 @@ interface JobOfferResponse {
 export async function getJobOffersService(): Promise<JobOfferResponse> {
     try {
         const jobOffers = await getJobOffers();
-        console.log(jobOffers);
         
         if (!jobOffers) {
             return {

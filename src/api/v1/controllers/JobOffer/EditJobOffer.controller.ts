@@ -3,7 +3,6 @@ import { editJobOfferService } from '../../services/jobOffer/EditJobOffer.servic
 
 export default async function EditJobOfferController(req: Request, res: Response) {
     try {
-        console.log("entre c");
         const jobOffer = await editJobOfferService(req.body, Number(req.params.id));
         res.status(200).json(jobOffer); 
     } catch (error) {

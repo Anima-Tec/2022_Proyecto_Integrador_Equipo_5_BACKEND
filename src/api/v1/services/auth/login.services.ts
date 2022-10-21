@@ -1,6 +1,6 @@
 
 import { UserLoginType } from "../../Schemas/auth/auth.schema";
-import { findUserByEmail } from "../data-access/User/findUser.data-acces";
+import { findUserByEmail } from "../data-access/User/findUserByEmail.data-acces";
 import { validatePassword } from '../../utils/auth/validatePassword';
 import { generateToken } from '../../utils/auth/generateToken';
 import bcrypt from 'bcrypt';
@@ -25,13 +25,13 @@ export async function loginServices(user: UserLoginType): Promise<LoginResponse>
       } else {
         return {
           status: 401,
-          message: "Incorrect password"
+          message: "Credenciales incorrectas"
         };
       }
     }
     return {
       status: 401,
-      message: "User not found"
+      message: "No existe el usuario"
     };
   } catch (error: any) {
     return { status: 500, message: error.message };

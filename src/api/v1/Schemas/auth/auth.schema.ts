@@ -41,3 +41,5 @@ export const RegisterStudentSchema = z.object({
 export type UserLoginType = z.infer<typeof LoginSchema>["body"];
 export type CompanyRegisterType = z.infer<typeof RegisterCompanySchema>["body"];
 export type StudentRegisterType = z.infer<typeof RegisterStudentSchema>["body"];
+
+

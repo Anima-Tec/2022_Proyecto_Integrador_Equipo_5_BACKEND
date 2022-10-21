@@ -5,7 +5,7 @@ import { registerStudentService } from '../../services/auth/registerStudent.serv
 export default async function registerStudentController({ body }: Request<unknown, unknown, StudentRegisterType>, res: Response) {
    try {
     const { status, message } = await registerStudentService(body); 
-    res.status(status).json({ message: message });
+    res.status(status).json({ message });
    } catch (error) {
      res.status(500).json(error);
    }

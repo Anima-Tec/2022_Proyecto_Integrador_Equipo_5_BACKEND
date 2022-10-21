@@ -124,7 +124,7 @@ model user {
   id_status   Int
   rol         rol           @relation(fields: [id_rol], references: [id_rol], onUpdate: Restrict, map: "user_ibfk_1")
   status      status        @relation(fields: [id_status], references: [id_status], onUpdate: Restrict, map: "user_ibfk_2")
-  company     company[]
+  company     company?
   phonenumber phonenumber[]
   student     student?
 
