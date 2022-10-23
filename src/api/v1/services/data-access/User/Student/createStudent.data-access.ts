@@ -8,7 +8,7 @@ export async function createStudent(student: StudentRegisterType) {
             data: {
                 email: student.email,
                 password: student.password,
-                description: student.description,
+                description: student.description !== undefined ? student.description : "",
                 rol: {
                     connect: {
                         id_rol: 1
@@ -23,12 +23,11 @@ export async function createStudent(student: StudentRegisterType) {
                     create: {
                         ci: student.ci,
                         first_name: student.first_name,
-                        second_name: student.second_name,
+                        second_name: student.second_name !== undefined ? student.second_name : "",
                         last_name: student.last_name,
-                        second_surname: student.second_surname,
+                        second_surname: student.second_surname !== undefined ? student.second_surname : "",
                         birth_date: new Date(student.birth_date).toISOString(),
-                        highschool: student.highschool,
-
+                        highschool: student.highschool !== undefined ? student.highschool : "",
                     }
                 },
                 phonenumber: {
@@ -38,7 +37,7 @@ export async function createStudent(student: StudentRegisterType) {
                 }
             }
         });
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        throw new Error(error.message);
     }
 }
