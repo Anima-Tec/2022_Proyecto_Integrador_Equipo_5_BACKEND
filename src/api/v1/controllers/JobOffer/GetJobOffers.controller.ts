@@ -1,10 +1,17 @@
 import { Request, Response } from 'express';
-import { getJobOffersService } from '../../services/jobOffer/GetJobOffers.service';
+import { getJobOffersCompanyService } from '../../services/jobOffer/GetJobOffers.service';
 
-export default async function GetJobOffersController(req: Request, res: Response) {
+export default async function GetJobOffersController({ body }: Request, res: Response) {
+    const { user } = body;
     try {
-        const {status,message,jobOffers} = await getJobOffersService();
-        res.status(status).json({message,jobOffers});
+        if (user.role === 'Company') {
+            const { status, message, jobOffers } = await getJobOffersCompanyService(user.id);
+            res.status(status).json({ message, jobOffers });
+        }
+
+        if (user.role === 'Student') {
+            res.status(200).json({ message: 'Estudiante' });
+        }
     } catch (error) {
         res.status(500).json(error);
     }

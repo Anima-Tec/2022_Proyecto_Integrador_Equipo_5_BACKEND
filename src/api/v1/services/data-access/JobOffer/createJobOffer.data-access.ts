@@ -8,8 +8,6 @@ export async function createJobOffer(jobOffer: JobOfferType) {
             data: {
                 name: jobOffer.name,
                 description: jobOffer.description,
-                start_hour: jobOffer.start_hour,
-                end_hour: jobOffer.end_hour,
                 modality: jobOffer.modality,
                 quotas: jobOffer.quotas,
                 workarea: {

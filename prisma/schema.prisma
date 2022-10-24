@@ -55,8 +55,6 @@ model joboffer {
   id_work_area Int
   name         String   @db.VarChar(50)
   description  String   @db.VarChar(255)
-  start_hour   String 
-  end_hour     String
   modality     String   @db.VarChar(50)
   quotas       Int
   company      company  @relation(fields: [id_company], references: [id_company], onUpdate: Restrict, map: "joboffer_ibfk_1")
