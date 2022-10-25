@@ -1,6 +1,7 @@
 import { workArea } from "./seeds/workArea";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+
 async function main() {
     for (const workAreaItem of workArea) {
         await prisma.workarea.create({
@@ -9,7 +10,21 @@ async function main() {
             },
         });
     }
+    await prisma.status.createMany({
+        data: [
+            {
+                name: "Pending",
+            },
+            {
+                name: "Rejected",
+            },
+            {
+                name: "Accepted",
+            }
+        ],
+    });
 }
+
 main()
     .catch((e) => {
         throw e;
