@@ -10,6 +10,16 @@ async function main() {
             },
         });
     }
+    await prisma.rol.createMany({
+        data: [
+            {
+                name_rol: "Student",
+            },
+            {
+                name_rol: "Company",
+            }
+        ],
+    });
     await prisma.status.createMany({
         data: [
             {
