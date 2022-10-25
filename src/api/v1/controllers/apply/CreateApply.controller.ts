@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { createApplyService } from '../../../services/student/apply/createApply.service';
-import { getStudentService } from '../../../services/student/getStudent.service';
+import { createApplyService } from '../../services/student/apply/createApply.service';
+import { getStudentService } from '../../services/student/getStudent.service';
 
 export default async function CreateApplyController(req: Request, res: Response) {
     try {

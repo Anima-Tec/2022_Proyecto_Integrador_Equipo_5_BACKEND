@@ -8,23 +8,40 @@ interface JobOfferResponse {
     jobOffer?: object;
 }
 
+interface IJobOffer {
+    id: number;
+    name: string;
+    description: string;
+    modality: string;
+    quotas: number;
+    workArea: string;
+}
 export async function getJobOfferService(id_job_offer: number): Promise<JobOfferResponse> {
     try {
-        const jobOffer = await getJobOffer(id_job_offer);
+        const jobOfferFound = await getJobOffer(id_job_offer);
 
-        if (!jobOffer) {
+        if (!jobOfferFound) {
             return {
                 status: 404,
                 message: "No se ha encontrado la oferta de trabajo",
             }
         }
 
+        const jobOffer: IJobOffer = {
+            id: jobOfferFound.id_job_offer,
+            name: jobOfferFound.name,
+            description: jobOfferFound.description,
+            modality: jobOfferFound.modality,
+            quotas: jobOfferFound.quotas,
+            workArea: jobOfferFound.workarea.name_work_area,
+        }
+
         return {
             status: 200,
-            jobOffer: jobOffer!,
+            jobOffer,
         };
-    
+
     } catch (error: any) {
         return { status: 500, message: error.message };
-    }    
+    }
 }

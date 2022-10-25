@@ -10,7 +10,7 @@ export async function getJobOffer(id_job_offer: number) {
             include: {
                 company: true,
                 workarea: true,
-            },
+            }
         });
     } catch (error) {
         console.log(error);

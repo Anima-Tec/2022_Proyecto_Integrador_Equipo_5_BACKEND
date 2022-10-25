@@ -42,7 +42,6 @@ interface StudentDTO {
 export async function getCurrentUserService(id_user: number): Promise<CurrentUserResponse> {
   try {
     const userFound = await findUserById(id_user);
-    console.log(userFound);
     
     if (userFound?.company) {
       const user: CompanyDTO = {

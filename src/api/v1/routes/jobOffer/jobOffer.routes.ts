@@ -10,6 +10,7 @@ const jobOfferRoutes = Router();
 
 jobOfferRoutes
     .get('/', GetJobOffersController)
+    .get('/:id', GetJobOfferController)
     .post('/', CreateJobOfferController)
     .get('/:id', GetJobOfferController)
     /* .put('/joboffer/:id', EditJobOfferController ) */

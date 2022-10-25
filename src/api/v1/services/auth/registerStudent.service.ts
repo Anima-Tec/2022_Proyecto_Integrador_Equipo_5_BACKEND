@@ -26,7 +26,3 @@ export async function registerStudentService(student: StudentRegisterType): Prom
     return { status: 500, message: error.message };
   }
 }
-
-// ver , si se registra el usuario ya mismo generar el token y que el front lo capture y lo ingrese. O Que lo redireccione al Login. - se agrega a la interfaz de respuesta el token y se agrega al return del servicio
-// por el momento solo lo registra y no genera el token
-// password confirmar que sea igual al password
