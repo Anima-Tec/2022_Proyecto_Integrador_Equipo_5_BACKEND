@@ -8,9 +8,9 @@ datasource db {
 }
 
 model apply {
-  id_job_offer_apply                      Int
   id_student_apply                        Int
   ci_student_apply                        String   @db.VarChar(10)
+  id_job_offer_apply                      Int
   joboffer                                joboffer @relation(fields: [id_job_offer_apply], references: [id_job_offer], onUpdate: Restrict, map: "apply_ibfk_1")
   student_apply_id_student_applyTostudent student  @relation("apply_id_student_applyTostudent", fields: [id_student_apply], references: [id_student], onUpdate: Restrict, map: "apply_ibfk_2")
   student_apply_ci_student_applyTostudent student  @relation("apply_ci_student_applyTostudent", fields: [ci_student_apply], references: [ci], onUpdate: Restrict, map: "apply_ibfk_3")
@@ -21,7 +21,7 @@ model apply {
 }
 
 model company {
-  id_company                         Int @unique
+  id_company                         Int        @unique
   rut                                String     @unique(map: "rut") @db.VarChar(10)
   name_company                       String     @db.VarChar(50)
   employees                          Int
