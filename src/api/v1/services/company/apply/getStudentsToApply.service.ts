@@ -95,8 +95,6 @@ export async function getStudentsToApplyService(id_job_offer: number, id_company
             });
         });
 
-        console.log(apply);
-        
         return {
             status: 200,
             apply,
